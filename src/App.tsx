@@ -1,5 +1,4 @@
 
-import './App.css'
 import DocxToHtmlUsingPreview from './DocxPreview'
 
 function App() {

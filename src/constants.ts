@@ -1,6 +1,6 @@
 
 export const flettekoder = {
-    "#AF-Tabell": "#FRAVAER_KORT#",
+    "#AF-Tabell": "#FRAVAER#",
     "#AIP-Tabell": "#AKTIVE_STILLINGER#",
     "#AUP-Tabell": "#PRAKSISPLASS_HISTORIKK#",
     "#TI-Tabell": "#STILLINGER_ALLE#",
@@ -64,4 +64,39 @@ export const flettekoder = {
     "TU-Utplasserthos-Navn": "#PRAKSISPLASS#",
     "TU-Utplasserthos-Postnummer": "#PRAKSISPLASS_POSTNUMMER#",
     "TU-Utplasserthos-Poststed": "#PRAKSISPLASS_POSTSTED#"
+}
+
+export const signatureFields: Record<string,string> = {
+    '2': `
+<table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
+  <tr>
+  <td style="border-width:0px !important; width:24pt"></td>
+  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;">
+    <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt">Signatur1</span>
+  </td>
+  <td style="border-width:0px !important; width:24pt"></td>
+  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
+    <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur2</span>
+  </td>
+  <td style="border-width:0px !important; width:24pt"></td>
+  </tr>
+</table>
+`,
+    '3': `
+  <table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
+    <tr>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;">
+      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt">Signatur1</span>
+    </td>
+  <td style="border-width:0px !important; width:24pt"></td>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
+      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur2</span>
+    </td>
+  <td style="border-width:0px !important; width:24pt"></td>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
+      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur3</span>
+    </td>
+    </tr>
+</table>
+    `
 }

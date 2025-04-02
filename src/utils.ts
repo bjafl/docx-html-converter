@@ -19,7 +19,6 @@ export function replaceTemplateCodes(
       }
     });
     tableMatches.forEach((match) => {
-
       const inner = match.replace(/<[^>]+?>/g, "").replace(/[\s{}]+/g, "");
       if (inner in templateCodes) {
         const value = templateCodes[inner] || "??";
@@ -44,34 +43,27 @@ export function replaceTemplateCodes2(
     if (tblCodesProcessed.some((code) => match.startsWith(code))) {
       return;
     }
-    let parent: HTMLElement | null | undefined = element.parentElement
-    while (parent && !(parent instanceof HTMLTableElement)){
+    let parent: HTMLElement | null | undefined = element.parentElement;
+    while (parent && !(parent instanceof HTMLTableElement)) {
       parent = parent?.parentElement;
     }
     const parentTbl = parent instanceof HTMLTableElement ? parent : null;
     if (parentTbl) {
-      console.log("Parent table found:", parentTbl);
-      const codeMatch = /{(#[^}]+?Tabell)}/g.exec(parentTbl.textContent || "")?.[1];
-      if (!codeMatch) console.warn("No match found for table code:", match);
-
-      console.log("Code:", codeMatch);
+      const codeMatch = /{(#[^}]+?Tabell)}/g.exec(
+        parentTbl.textContent || ""
+      )?.[1];
+      //if (!codeMatch) console.warn("No match found for table code:", match);
 
       const replaceCode = codeMatch ? templateCodes[codeMatch] : "????";
       const newElement = document.createElement("p");
       newElement.textContent = replaceCode;
       const parent = parentTbl.parentElement;
       if (parent) {
-      console.log("Parent element:", parent);
-      parent.insertBefore(newElement, parentTbl);
-      console.log("inserted new element:", newElement);
-      parent.removeChild(parentTbl);
-      console.log("removed parent table:", parentTbl);
-      tblCodesProcessed.push(/#.+?-/g.exec(match)?.[0] || "");
-      console.log("tblCodesProcessed:", tblCodesProcessed);
-
+        parent.insertBefore(newElement, parentTbl);
+        parent.removeChild(parentTbl);
+        tblCodesProcessed.push(/#.+?-/g.exec(match)?.[0] || "");
       }
-    }
-    else {
+    } else {
       console.warn("No table found for match:", match);
       element.textContent = element.textContent?.replace(match, "????") || null;
     }
@@ -86,7 +78,8 @@ export function replaceTemplateCodes2(
       const innerMatch = innerHtml.match(/{[^}]+?}/g)?.[0] || "";
       console.log("innerMatch:", innerMatch);
       const innerTextRemoved =
-        innerMatch.match(/<[^>]+?>/g)?.reduce((acc, str) => acc + str, "") || "";
+        innerMatch.match(/<[^>]+?>/g)?.reduce((acc, str) => acc + str, "") ||
+        "";
       const new_val = value + innerTextRemoved;
       //element.textContent = element.textContent?.replace(match, value) || "????";
       element.innerHTML = innerHtml.replace(innerMatch, new_val);
@@ -100,20 +93,16 @@ export function applyComputedStylesToInline(
 ) {
   // Process one element
   function processElement(element: HTMLElement) {
-    // Get computed styles
     const computedStyle = window.getComputedStyle(element);
 
     // Convert to inline styles
     for (let i = 0; i < computedStyle.length; i++) {
       const propertyName = computedStyle[i];
 
-      // Skip excluded properties
       if (excludeProps.includes(propertyName)) continue;
-
       // Skip properties that start with "-" (browser-specific)
       if (propertyName.startsWith("-")) continue;
 
-      // Get the computed value and apply it inline
       const propertyValue = computedStyle.getPropertyValue(propertyName);
       element.style.setProperty(propertyName, propertyValue);
     }
@@ -126,17 +115,10 @@ export function applyComputedStylesToInline(
     });
   }
 
-  // Start the recursive processing
   processElement(rootElement);
   return rootElement;
 }
 
-/**
- * Apply only non-default computed styles as inline styles
- * @param {HTMLElement} rootElement - The root element to start from
- * @param {Array<string>} [excludeProps] - Optional array of CSS property names to exclude
- * @returns {HTMLElement} - The modified element (same reference)
- */
 export function applyNonDefaultStylesToInline(
   rootElement: HTMLElement,
   excludeProps: string[] = []
@@ -149,6 +131,8 @@ export function applyNonDefaultStylesToInline(
     "-moz-",
     "-ms-",
     "-o-",
+    "-inline-",
+    "-block-",
     "perspective",
     "transform-origin",
   ];
@@ -192,7 +176,7 @@ export function applyNonDefaultStylesToInline(
 
       // Skip excluded or always-skip properties
       if (excludeProps.includes(propertyName)) continue;
-      if (alwaysSkip.some((prefix) => propertyName.startsWith(prefix)))
+      if (alwaysSkip.some((prefix) => propertyName.includes(prefix)))
         continue;
 
       const computedValue = computedStyle.getPropertyValue(propertyName);
@@ -217,10 +201,29 @@ export function applyNonDefaultStylesToInline(
   return rootElement;
 }
 
+export function allTablesFullWidth(rootElement: HTMLElement) {
+  const tables = rootElement.querySelectorAll("table");
+  //const wrapperWidth = (rootElement.querySelector(".A4-wrapper") as HTMLElement)?.clientWidth;
+  tables.forEach((table) => {
+    if (table.className.includes("A4-wrapper")) return;
+    //const parentWidth = table.parentElement?.clientWidth;
+    table.style.width = "160mm" //Math.min(parentWidth || 0, wrapperWidth) + "px";
+    /*const existingWidth = /width:[^;](;|$)/.exec(table.style.cssText);
+    if (existingWidth) {
+      table.style.cssText = table.style.cssText.replace(
+        existingWidth[0],
+        p
+      );
+    } else {
+      table.style.cssText += "width:100%;";
+    }*/
+  });
+}
+
 export function wrapPageInTbl(rootElement: HTMLElement) {
   const tbl = document.createElement("table");
   tbl.style.cssText =
-    "border-width:0px !important; margin:25mm auto; padding:0px; width:160mm;";
+    "border-width:0px !important; margin:auto; padding:0px; width:160mm;";
   tbl.className = "A4-wrapper";
   const tr = document.createElement("tr");
   const td = document.createElement("td");
