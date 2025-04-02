@@ -1,6 +1,6 @@
 import  { useState, useRef, ChangeEventHandler,  useEffect, useCallback } from 'react';
 import * as docx from 'docx-preview';
-import {  applyNonDefaultStylesToInline, replaceTemplateCodes, replaceTemplateCodes2, wrapPageInTbl } from './utils';
+import {  applyNonDefaultStylesToInline, replaceTemplateCodes2, wrapPageInTbl } from './utils';
 import { flettekoder } from './constants';
 
 const DocxToHtmlUsingPreview = () => {
