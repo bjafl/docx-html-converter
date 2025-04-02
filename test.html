@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<!-- 
+    - Set 0.25pt = 0px 
+ 
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Converted Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .docx-viewer {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!--docxjs library predefined styles--><style>
+      .docx-viewer-wrapper {
+        background: gray;
+        padding: 30px;
+        padding-bottom: 0px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        width: 210mm;
+      }
+      .docx-viewer-wrapper > section.docx-viewer {
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-bottom: 30px;
+      }
+      .docx-viewer {
+        color: black;
+        hyphens: auto;
+        text-underline-position: from-font;
+      }
+      section.docx-viewer {
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column nowrap;
+        position: relative;
+        overflow: hidden;
+      }
+      section.docx-viewer > article {
+        margin-bottom: auto;
+        z-index: 1;
+      }
+      section.docx-viewer > footer {
+        z-index: 1;
+      }
+      .docx-viewer table {
+        border-collapse: collapse;
+      }
+      .docx-viewer table td,
+      .docx-viewer table th {
+        vertical-align: top;
+      }
+      .docx-viewer p {
+        margin: 0pt;
+        min-height: 1em;
+      }
+      .docx-viewer span {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+      .docx-viewer a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      .docx-viewer svg {
+        fill: transparent;
+      }
+      .header {
+        visibility: collapse;
+      }
+      .footer {
+        visibility: collapse;
+      }
+    </style>
+    <!--docxjs document theme values-->
+    <style>
+      .docx-viewer {
+        --docx-majorHAnsi-font: Calibri Light;
+        --docx-minorHAnsi-font: Calibri;
+        --docx-dk1-color: #000000;
+        --docx-lt1-color: #ffffff;
+        --docx-dk2-color: #44546a;
+        --docx-lt2-color: #e7e6e6;
+        --docx-accent1-color: #4472c4;
+        --docx-accent2-color: #ed7d31;
+        --docx-accent3-color: #a5a5a5;
+        --docx-accent4-color: #ffc000;
+        --docx-accent5-color: #5b9bd5;
+        --docx-accent6-color: #70ad47;
+        --docx-hlink-color: #0563c1;
+        --docx-folHlink-color: #954f72;
+      }</style>
+      <!--docxjs document styles-->
+      <style>
+      .docx-viewer span {
+        font-family: var(--docx-minorHAnsi-font);
+        min-height: 11pt;
+        font-size: 11pt;
+      }
+      .docx-viewer p {
+        margin-bottom: 8pt;
+        line-height: 1.08;
+      }
+      .docx-viewer p,
+      p.docx-viewer_normal {
+        margin-bottom: 10pt;
+        line-height: 1.15;
+      }
+      p.docx-viewer_overskrift3 {
+        margin-top: 2pt;
+        margin-bottom: 0pt;
+        line-height: 1.05;
+      }
+      p.docx-viewer_overskrift3 span {
+        font-family: "Calibri Light";
+        color: #1f3763;
+        min-height: 12pt;
+        font-size: 12pt;
+      }
+      p.docx-viewer_overskrift3 span {
+        font-family: "Calibri Light";
+        color: #1f3763;
+        min-height: 12pt;
+        font-size: 12pt;
+      }
+      .docx-viewer table,
+      table.docx-viewer_vanligtabell td {
+        padding-top: 0pt;
+        padding-left: 5.4pt;
+        padding-bottom: 0pt;
+        padding-right: 5.4pt;
+      }
+      p.docx-viewer_topptekst {
+        margin-bottom: 0pt;
+        line-height: 1;
+      }
+      span.docx-viewer_toppteksttegn p {
+        margin-bottom: 0pt;
+        line-height: 1;
+      }
+      p.docx-viewer_bunntekst {
+        margin-bottom: 0pt;
+        line-height: 1;
+      }
+      span.docx-viewer_bunnteksttegn p {
+        margin-bottom: 0pt;
+        line-height: 1;
+      }
+      table.docx-viewer_tabellrutenett p {
+        margin-bottom: 0pt;
+        line-height: 1;
+      }
+      table.docx-viewer_tabellrutenett td {
+        border-top: 0.5pt solid black;
+        border-left: 0.5pt solid black;
+        border-bottom: 0.5pt solid black;
+        border-right: 0.5pt solid black;
+        padding-top: 0pt;
+        padding-left: 5.4pt;
+        padding-bottom: 0pt;
+        padding-right: 5.4pt;
+      }
+      p.docx-viewer_listeavsnitt {
+        margin-left: 36pt;
+        margin-bottom: 10pt;
+        line-height: 1.15;
+      }
+      span.docx-viewer_overskrift3tegn {
+        font-family: "Calibri Light";
+        color: #1f3763;
+        min-height: 12pt;
+        font-size: 12pt;
+      }
+      span.docx-viewer_overskrift3tegn p {
+        margin-top: 2pt;
+        margin-bottom: 0pt;
+        line-height: 1.05;
+      }
+      span.docx-viewer_overskrift3tegn {
+        font-family: "Calibri Light";
+        color: #1f3763;
+        min-height: 12pt;
+        font-size: 12pt;
+      }</style>
+      <!--docxjs document numbering styles-->
+      <style>
+      p.docx-viewer-num-1-0:before {
+        content: "-\9";
+        counter-increment: docx-viewer-num-1-0;
+        font-family: "Times New Roman";
+      }
+      p.docx-viewer-num-1-0 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 36pt;
+      }
+      p.docx-viewer-num-1-0 {
+        counter-set: docx-viewer-num-1-1 0;
+      }
+      p.docx-viewer-num-1-1:before {
+        content: "o\9";
+        counter-increment: docx-viewer-num-1-1;
+        font-family: "Courier New";
+      }
+      p.docx-viewer-num-1-1 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 72pt;
+      }
+      p.docx-viewer-num-1-1 {
+        counter-set: docx-viewer-num-1-2 0;
+      }
+      p.docx-viewer-num-1-2:before {
+        content: "\9";
+        counter-increment: docx-viewer-num-1-2;
+        font-family: Wingdings;
+      }
+      p.docx-viewer-num-1-2 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 108pt;
+      }
+      p.docx-viewer-num-1-2 {
+        counter-set: docx-viewer-num-1-3 0;
+      }
+      p.docx-viewer-num-1-3:before {
+        content: "\9";
+        counter-increment: docx-viewer-num-1-3;
+        font-family: Symbol;
+      }
+      p.docx-viewer-num-1-3 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 144pt;
+      }
+      p.docx-viewer-num-1-3 {
+        counter-set: docx-viewer-num-1-4 0;
+      }
+      p.docx-viewer-num-1-4:before {
+        content: "o\9";
+        counter-increment: docx-viewer-num-1-4;
+        font-family: "Courier New";
+      }
+      p.docx-viewer-num-1-4 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 180pt;
+      }
+      p.docx-viewer-num-1-4 {
+        counter-set: docx-viewer-num-1-5 0;
+      }
+      p.docx-viewer-num-1-5:before {
+        content: "\9";
+        counter-increment: docx-viewer-num-1-5;
+        font-family: Wingdings;
+      }
+      p.docx-viewer-num-1-5 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 216pt;
+      }
+      p.docx-viewer-num-1-5 {
+        counter-set: docx-viewer-num-1-6 0;
+      }
+      p.docx-viewer-num-1-6:before {
+        content: "\9";
+        counter-increment: docx-viewer-num-1-6;
+        font-family: Symbol;
+      }
+      p.docx-viewer-num-1-6 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 252pt;
+      }
+      p.docx-viewer-num-1-6 {
+        counter-set: docx-viewer-num-1-7 0;
+      }
+      p.docx-viewer-num-1-7:before {
+        content: "o\9";
+        counter-increment: docx-viewer-num-1-7;
+        font-family: "Courier New";
+      }
+      p.docx-viewer-num-1-7 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 288pt;
+      }
+      p.docx-viewer-num-1-7 {
+        counter-set: docx-viewer-num-1-8 0;
+      }
+      p.docx-viewer-num-1-8:before {
+        content: "\9";
+        counter-increment: docx-viewer-num-1-8;
+        font-family: Wingdings;
+      }
+      p.docx-viewer-num-1-8 {
+        display: list-item;
+        list-style-position: inside;
+        list-style-type: none;
+        text-indent: -18pt;
+        margin-left: 324pt;
+      }
+      .docx-viewer-wrapper {
+        counter-reset: docx-viewer-num-1-0 0 docx-viewer-num-1-1 0
+          docx-viewer-num-1-2 0 docx-viewer-num-1-3 0 docx-viewer-num-1-4 0
+          docx-viewer-num-1-5 0 docx-viewer-num-1-6 0 docx-viewer-num-1-7 0
+          docx-viewer-num-1-8 0;
+      }
+    </style>
+    <div class="docx-viewer-wrapper">
+      <section class="docx-viewer" style="padding: 70.85pt">
+        <header
+          style="margin-top: calc(-47.2667px); min-height: calc(47.2667px)"
+        >
+          <p class="docx-viewer_topptekst" style="text-align: right">
+            <span lang="null" style="color: rgb(68, 114, 196)"
+              ><div
+                style="
+                  display: inline-block;
+                  position: relative;
+                  text-indent: 0px;
+                  width: 119.25pt;
+                  height: 56.25pt;
+                "
+              >
+                <img
+                  src="blob:http://localhost:5174/be9c418b-9db7-46a7-af34-02784dbc9e97"
+                  style="
+                    position: relative;
+                    left: 0pt;
+                    top: 0pt;
+                    width: 119.25pt;
+                    height: 56.25pt;
+                  "
+                /></div
+            ></span>
+          </p>
+          <p class="docx-viewer_topptekst"></p>
+        </header>
+        <article>
+          <p style="margin-bottom: 0pt; text-align: right">
+            <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt"
+              >{S-</span
+            ><span
+              style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt"
+              >Datonå</span
+            ><span
+              style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt"
+              >}</span
+            >
+          </p>
+          <p
+            style="
+              margin-bottom: 0pt;
+              text-indent: 35.4pt;
+              margin-left: 141.6pt;
+            "
+          >
+            <span
+              style="
+                font-weight: bold;
+                color: rgb(0, 0, 0);
+                min-height: 14pt;
+                font-size: 14pt;
+              "
+              >Statusrapport</span
+            >
+          </p>
+          <p style="margin-bottom: 0pt"></p>
+          <table
+            class="first-row first-col no-vband docx-viewer_tabellrutenett"
+            style="width: 100%"
+          >
+            <colgroup>
+              <col style="width: 212.4pt" />
+              <col style="width: 240.7pt" />
+            </colgroup>
+            <tr>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Navn: </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{A-Fornavn} {A-Etternavn}</span
+                  >
+                </p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Personnr</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >:</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                  >
+                    {A-Fødselsnummer}</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Adresse</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >: </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{A-Adresse1}</span
+                  >
+                </p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Poststed:</span
+                  ><span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                  >
+                  </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{A-Postnummer} {A-Poststed}</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Innsøkende instans: </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{T-</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Innsøker</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >-Navn}</span
+                  >
+                </p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Veileder NAV: </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{T-</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Innsøker</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >-kontakt-Fornavn} {T-</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Innsøker</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >-kontakt-Etternavn}</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Oppstartsdato: </span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{T-Startdato}</span
+                  >
+                </p>
+              </td>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Periode for statusrapport:</span
+                  >
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin-bottom: 0pt"></p>
+          <table
+            class="first-row first-col no-vband docx-viewer_tabellrutenett"
+            style="width: auto"
+          >
+            <colgroup>
+              <col style="width: 453.1pt" />
+            </colgroup>
+            <tr>
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Bestilling fra NAV</span
+                  ><span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >:
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{T-Bestilling/kommentar}</span
+                  >
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin-bottom: 0pt"></p>
+          <table
+            class="first-row first-col no-vband docx-viewer_tabellrutenett"
+            style="width: auto"
+          >
+            <colgroup>
+              <col style="width: 453.1pt" />
+            </colgroup>
+            <tr style="height: 14.35pt">
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Hovedmålsetting:</span
+                  ><span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                  >
+                  </span
+                  ><span
+                    style="
+                      font-style: italic;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Hensikt med gjennomføring av tiltaket</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr style="height: 6.65pt">
+              <td>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{TF-Id1-Beskrivelse}</span
+                  >
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin-bottom: 0pt"></p>
+          <table
+            class="first-row first-col no-vband docx-viewer_tabellrutenett"
+            style="width: auto"
+          >
+            <colgroup>
+              <col style="width: 212.4pt" />
+              <col style="width: 240.7pt" />
+            </colgroup>
+            <tr>
+              <td
+                style="
+                  border-width: 0.5pt 0.5pt 0px;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Deltakers målsetting/ yrkesmål:</span
+                  >
+                </p>
+              </td>
+              <td
+                style="
+                  border-width: 0.5pt 0.5pt 0px;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-weight: bold;
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Revidert målsetting:</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr style="height: 5.5pt">
+              <td
+                style="
+                  border-width: 0px 0.5pt 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{TF-Id2-Beskrivelse}</span
+                  >
+                </p>
+              </td>
+              <td
+                style="
+                  border-width: 0px 0.5pt 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      color: rgb(0, 0, 0);
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >{TF-Id3-Beskrivelse}</span
+                  >
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin-bottom: 0pt"></p>
+          <table class="first-row first-col no-vband" style="width: auto">
+            <colgroup>
+              <col style="width: 453.1pt" />
+            </colgroup>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Status og utvikling i forhold til plan</span
+                  ><span style="min-height: 12pt; font-size: 12pt">:</span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt"></p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Arbeidspraksis</span
+                  ><span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >:</span
+                  >
+                </p>
+                <p class="docx-viewer_overskrift3" style="line-height: 1.15">
+                  <span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                    >I</span
+                  ><span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                    >ntern praksis i perioden</span
+                  ><span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                    >:</span
+                  >
+                </p>
+                <table class="first-row first-col no-vband" style="width: auto">
+                  <colgroup>
+                    <col style="width: 68.75pt" />
+                    <col style="width: 69.95pt" />
+                    <col style="width: 69.7pt" />
+                    <col style="width: 89.6pt" />
+                    <col style="width: 143.3pt" />
+                  </colgroup>
+                  <tr>
+                    <td
+                      style="
+                        border-width: 1pt;
+                        border-style: solid;
+                        border-color: rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Avdeling</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Startdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Sluttdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Prosent</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Veileder</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt">T</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >I-Tabell}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TI</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Avdeling-Navn}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TI</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Startdato}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TI</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Sluttdato}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TI</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Stillingsprosent}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TI</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Ansvarlig1-Fornavnetternavn}</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt"></p>
+                <p class="docx-viewer_overskrift3" style="line-height: 1.15">
+                  <span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                    >Ekstern</span
+                  ><span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                  >
+                    praksis i perioden</span
+                  ><span
+                    style="
+                      font-family: var(--docx-minorHAnsi-font),
+                        'Times New Roman';
+                      color: black;
+                    "
+                    >:</span
+                  >
+                </p>
+                <table class="first-row first-col no-vband" style="width: auto">
+                  <colgroup>
+                    <col style="width: 81.9pt" />
+                    <col style="width: 67.9pt" />
+                    <col style="width: 67.5pt" />
+                    <col style="width: 89.6pt" />
+                    <col style="width: 134.4pt" />
+                  </colgroup>
+                  <tr>
+                    <td
+                      style="
+                        border-width: 1pt;
+                        border-style: solid;
+                        border-color: rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Firma</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Startdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Sluttdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Prosent</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Veileder</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#TU-Tabell}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TU</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Utplasserthos-Navn}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TU</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Startdato}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TU</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Sluttdato}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TU</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Stillingsprosent}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt">{#</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >TU</span
+                        ><span style="min-height: 12pt; font-size: 12pt"
+                          >-Ansvarlig1-Fornavnetternavn}</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt"></p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Arbeidsoppgaver:
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                  >
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Andre aktiviteter:
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Egenpleie, trening, behandling.
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Andre aktiviteter som kan bidra til å øke eller avklare
+                    arbeidsevnen.
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Dersom deltaker ikke er i arbeidspraksis fulltid må det
+                    synliggjøres hvordan deltaker fyller dagene sine for å sikre
+                    at AFT er et fulltidstilbud.</span
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Oppfølging i perioden:</span
+                  >
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Oppfølging fra jobbkonsulent.
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Ved intern praksis må mengden oppfølging av arbeidsleder
+                    også framkomme her.
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="
+                      font-style: italic;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Kartlegginger som er gjort – hva og hvorfor? Hvilke faglige
+                    begrunnelser foreligger for den kartleggingen som er gjort?
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Forholdet mellom helse og arbeidsevne:
+                  </span>
+                </p>
+                <p style="margin-bottom: 0pt; margin-right: 20.5pt"></p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-family: Calibri;
+                      font-weight: bold;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Fravær:
+                  </span>
+                </p>
+                <table class="first-row first-col no-vband" style="width: auto">
+                  <colgroup>
+                    <col style="width: 87.8pt" />
+                    <col style="width: 87.45pt" />
+                    <col style="width: 87.3pt" />
+                    <col style="width: 91.4pt" />
+                    <col style="width: 87.35pt" />
+                  </colgroup>
+                  <tr>
+                    <td
+                      style="
+                        border-width: 1pt;
+                        border-style: solid;
+                        border-color: rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Fraværstype</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Startdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Sluttdato</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Fraværsprosent</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: 1pt solid rgb(191, 191, 191);
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span
+                          style="
+                            font-weight: bold;
+                            min-height: 12pt;
+                            font-size: 12pt;
+                          "
+                          >Kommentar</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Tabell}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: 1pt solid rgb(191, 191, 191);
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Fraværstype-Navn}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Startdato/kl}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Sluttdato/kl}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Fraværsprosent}</span
+                        >
+                      </p>
+                    </td>
+                    <td
+                      style="
+                        border-top: none;
+                        border-left: none;
+                        border-bottom: 1pt solid rgb(191, 191, 191);
+                        border-right: 1pt solid rgb(191, 191, 191);
+                        padding: 0pt 5.4pt;
+                      "
+                    >
+                      <p style="margin-bottom: 0pt">
+                        <span style="min-height: 12pt; font-size: 12pt"
+                          >{#AF-Kommentar}</span
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    ><br /></span
+                  ><span
+                    style="font-weight: bold; min-height: 12pt; font-size: 12pt"
+                    >Kommentar fravær:
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  background-color: inherit;
+                  border-width: 0.5pt;
+                  border-style: solid;
+                  border-color: black;
+                "
+              >
+                <p style="margin-bottom: 0pt">
+                  <span
+                    style="
+                      font-family: Calibri;
+                      font-weight: bold;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >Videre planer i gjennomføringen av tiltaket</span
+                  ><span
+                    style="
+                      font-family: Calibri;
+                      font-weight: bold;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    >:</span
+                  ><span
+                    style="
+                      font-family: Calibri;
+                      font-weight: bold;
+                      min-height: 12pt;
+                      font-size: 12pt;
+                    "
+                    ><br
+                  /></span>
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin-bottom: 0pt"></p>
+          <p style="margin-bottom: 0pt">
+            <span
+              style="
+                font-weight: bold;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+              >Deltakers kommentar:</span
+            >
+          </p>
+          <p style="margin-bottom: 0pt">
+            <span
+              style="
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+              >Deltaker har lest og godkjent rapporten</span
+            ><span
+              style="
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+            >
+              …</span
+            ><span
+              style="
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+              >……</span
+            ><span
+              style="
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+              >…….</span
+            ><span
+              style="
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                min-height: 12pt;
+                font-size: 12pt;
+              "
+              >….. (Dato)</span
+            >
+          </p>
+          <p style="margin-bottom: 0pt"></p>
+
+          
+          <p style="margin-bottom: 0pt"></p>
+          <p style="margin-bottom: 0pt"></p>
+          <p style="margin-bottom: 0pt"></p>
+          <p style="margin-bottom: 0pt">
+            <span style="min-height: 12pt; font-size: 12pt"
+              ><span> </span></span
+            >
+          </p>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>
