@@ -70,31 +70,31 @@ export const signatureFields: Record<string,string> = {
     '2': `
 <table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
   <tr>
-  <td style="border-width:0px !important; width:24pt"></td>
-  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;">
-    <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt">Signatur1</span>
+  <td style="border-width:0px !important; width:4%"></td>
+  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px; width: 47%;">
+    <span>Signatur1</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
   </td>
-  <td style="border-width:0px !important; width:24pt"></td>
-  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
-    <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur2</span>
+  <td style="border-width:0px !important; width:4%"></td>
+  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px; width: 47%;">
+    <span>Signatur2</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
   </td>
-  <td style="border-width:0px !important; width:24pt"></td>
+  <td style="border-width:0px !important; width:4%"></td>
   </tr>
 </table>
 `,
     '3': `
   <table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
     <tr>
-    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;">
-      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt">Signatur1</span>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;;width: 28%;">
+      <span>Signatur1</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
     </td>
-  <td style="border-width:0px !important; width:24pt"></td>
-    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
-      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur2</span>
+  <td style="border-width:0px !important; width:3%"></td>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;width: 28%;">
+      <span>Signatur2</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
     </td>
-  <td style="border-width:0px !important; width:24pt"></td>
-    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt">
-      <span style="color: rgb(0, 0, 0); min-height: 12pt; font-size: 12pt;">Signatur3</span>
+  <td style="border-width:0px !important; width:3%"></td>
+    <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt;width: 28%;">
+      <span>Signatur3</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
     </td>
     </tr>
 </table>

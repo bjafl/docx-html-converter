@@ -8,14 +8,23 @@ import {
 import * as docx from "docx-preview";
 import {
   allTablesFullWidth,
-  applyNonDefaultStylesToInline,
+  applyStyleheetsInline,
+  applyStylesInline,
   removeFontFamily,
   replaceTemplateCodes2,
-  wrapPageInTbl
+  wrapPageInTbl,
 } from "./utils";
 import { flettekoder, signatureFields } from "./constants";
 import Checkbox from "./Checkbox";
 import { RadioGroup } from "./Radiobtn";
+
+const overrideStyles = {
+  td: {
+    padding: "6px",
+    "vertical-align": "top",
+    "text-align": "left",
+  },
+};
 
 const DocxToHtmlUsingPreview = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +48,7 @@ const DocxToHtmlUsingPreview = () => {
       file.type !==
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ) {
-      setError("Please upload a valid DOCX file.");
+      setError("Vennligst last opp en gyldig DOCX-fil.");
       if (containerRef) {
         containerRef.innerHTML = "";
       }
@@ -66,8 +75,8 @@ const DocxToHtmlUsingPreview = () => {
       await docx.renderAsync(arrayBuffer, containerRef, undefined, {
         className: "docx-viewer",
         inWrapper: true,
-        ignoreWidth: true,
-        ignoreHeight: true,
+        //ignoreWidth: true,
+        //ignoreHeight: true,
         renderChanges: false,
         renderComments: false,
         renderFootnotes: false,
@@ -86,18 +95,25 @@ const DocxToHtmlUsingPreview = () => {
         replaceTemplateCodes2(divArt, flettekoder);
         if (signatureChoice !== "0" && signatureChoice in signatureFields) {
           const signatureHtml = signatureFields[signatureChoice];
-          divArt.innerHTML += signatureHtml;
+          const divSig = document.createElement("div");
+          divSig.innerHTML = signatureHtml;
+          divArt.appendChild(divSig);
         }
+        console.log("divArt:", divArt);
         if (fullWidthTables) {
           allTablesFullWidth(divArt);
         }
-        applyNonDefaultStylesToInline(divArt);
+        const doc = iframeRef.current?.contentDocument;
+        if (doc !== null && doc !== undefined) applyStyleheetsInline(doc);
+        //applyNonDefaultStylesToInline(divArt);
         const tblElem = wrapPageInTbl(divArt);
-        console.log("wrap ok", tblElem)
         if (stripFontFamilies) {
-          console.log("stripping fonts...")
-          removeFontFamily(tblElem)
+          console.log("stripping fonts...");
+          removeFontFamily(tblElem);
         }
+
+        console.log("Applying override styles...");
+        applyStylesInline(divArt, overrideStyles);
       }
       console.log(
         "HTML content available for export:",
@@ -211,27 +227,27 @@ const DocxToHtmlUsingPreview = () => {
               />
             </label>
             <div className="mb-2">
-            <Checkbox
-              label="Endre tabeller til full bredde"
-              initialChecked={fullWidthTables}
-              onChange={setFullWidthTables}
-            />
+              <Checkbox
+                label="Endre tabeller til full bredde"
+                initialChecked={fullWidthTables}
+                onChange={setFullWidthTables}
+              />
             </div>
             <div className="mb-2">
-            <Checkbox
-              label="Fjern skrifttype (familie)"
-              initialChecked={stripFontFamilies}
-              onChange={setStripFontFamilies}
-            />
+              <Checkbox
+                label="Fjern skrifttype (familie)"
+                initialChecked={stripFontFamilies}
+                onChange={setStripFontFamilies}
+              />
             </div>
             <div className="mb-2">
-            <RadioGroup
-              name="signature-options"
-              label="Legg til signaturfelt"
-              options={signatureOptions}
-              value={signatureChoice}
-              onChange={setSignatureChoice}
-            />
+              <RadioGroup
+                name="signature-options"
+                label="Legg til signaturfelt"
+                options={signatureOptions}
+                value={signatureChoice}
+                onChange={setSignatureChoice}
+              />
             </div>
           </div>
 
@@ -260,7 +276,6 @@ const DocxToHtmlUsingPreview = () => {
               Kopier HTML til utklippstavlen
             </button>
           </div>
-
         </div>
 
         {error && (

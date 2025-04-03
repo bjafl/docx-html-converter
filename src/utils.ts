@@ -76,7 +76,6 @@ export function replaceTemplateCodes2(
       const value = templateCodes[inner] || "????";
       const innerHtml = element.innerHTML;
       const innerMatch = innerHtml.match(/{[^}]+?}/g)?.[0] || "";
-      console.log("innerMatch:", innerMatch);
       const innerTextRemoved =
         innerMatch.match(/<[^>]+?>/g)?.reduce((acc, str) => acc + str, "") ||
         "";
@@ -262,9 +261,68 @@ export function removeFontFamily(rootElement: HTMLElement, setInRoot = true) {
     const [newFam] = Object.entries(fontFamilyCount).reduce((last, cur) => {
       return last[1] >= cur[1] ? last : cur;
     }, ["",0])
-    console.log('most frequent', newFam)
     if (newFam) {
       rootElement.style.fontFamily = newFam;
-    }
+    }CSSStyleRule
   }
+}
+
+export function applyStyleheetsInline(doc: Document, excludeProps: string[] = []) {
+  Array.from(doc.styleSheets).forEach((styleSheet) => {
+    try {
+      const rules = styleSheet.cssRules || [];
+      Array.from(rules).forEach((rule) => {
+        if (rule.constructor.name === "CSSStyleRule") {
+          const styleRule = rule as CSSStyleRule;
+          const style = Object.entries(styleRule.style).reduce((acc, [prop, value]) => {
+            if (!value || excludeProps.includes(prop)) return acc;
+            acc[prop] = value;
+            return acc;
+          }, {} as Record<string, string>);
+          const elements = doc.querySelectorAll(styleRule.selectorText);
+          elements.forEach((element) => {
+            if (!(element instanceof HTMLElement)) return;
+            applyStylesInlineToElement(element, style);            
+          });
+        }
+      });
+    } catch (e) {
+      console.warn("Error applying styles from stylesheet:", e);
+    }
+  });
+}
+export function applyStylesInline(element: HTMLElement, styles: Record<string, Record<string, string>>) {
+  Object.entries(styles).forEach(([selector, style]) => {
+    const elements = element.querySelectorAll(selector);
+    elements.forEach((el) => {
+      if (!(el instanceof HTMLElement)) return;
+      applyStylesInlineToElement(el, style, false);
+    });
+  });
+}
+
+export function combineStyles(styles: CSSStyleDeclaration[]) {
+  const combinedStyles: Record<string, string> = {};
+  styles.forEach((style) => {
+    Array.from(style).forEach((prop) => {
+      const value = style.getPropertyValue(prop);
+      if (value) {
+        combinedStyles[prop] = value;
+      }
+    });
+  });
+  return combinedStyles;
+}
+
+export function applyStylesInlineToElement(
+  element: HTMLElement,
+  styles: Record<string, string> | CSSStyleDeclaration,
+  excludeExising = true
+) {
+  Object.entries(styles).forEach(([prop, value]) => {
+    if (value) {
+      if (excludeExising && element.style.getPropertyValue(prop)) return;
+      element.style.setProperty(prop, value);
+    }
+  });
 }
