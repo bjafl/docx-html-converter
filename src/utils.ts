@@ -240,25 +240,29 @@ export function wrapPageInTbl(rootElement: HTMLElement) {
 
 export function removeFontFamily(rootElement: HTMLElement, setInRoot = true) {
   const fontFamilyCount: Record<string, number> = {}
+  
   const removeFontsChildren = (firstChild: HTMLElement) => {
-    const children = rootElement.children
-    if (Array.isArray(children)) {
-      Array.from(children).forEach((child) => {
+    firstChild.childNodes.forEach((child) => {
         if (child instanceof HTMLElement) removeFontsChildren(child)
-      })
-    }
+      });
+    
+
     const fFamily = firstChild.style.fontFamily;
     fFamily.split(',').forEach((fam) => {
-      fam = fam.replace('"', '').trim();
+      fam = fam.replace(/(^['" ]+)|(['" ]+$)/g, '').trim();
       fontFamilyCount[fam] = (fontFamilyCount[fam] || 1) + 1;
     })
     firstChild.style.fontFamily = ""
   }
 
+  removeFontsChildren(rootElement);
+
   if (setInRoot) {
+    console.log("font counts", fontFamilyCount)
     const [newFam] = Object.entries(fontFamilyCount).reduce((last, cur) => {
       return last[1] >= cur[1] ? last : cur;
     }, ["",0])
+    console.log('most frequent', newFam)
     if (newFam) {
       rootElement.style.fontFamily = newFam;
     }

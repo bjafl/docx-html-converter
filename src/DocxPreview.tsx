@@ -11,7 +11,7 @@ import {
   applyNonDefaultStylesToInline,
   removeFontFamily,
   replaceTemplateCodes2,
-  wrapPageInTbl,
+  wrapPageInTbl
 } from "./utils";
 import { flettekoder, signatureFields } from "./constants";
 import Checkbox from "./Checkbox";
@@ -93,7 +93,9 @@ const DocxToHtmlUsingPreview = () => {
         }
         applyNonDefaultStylesToInline(divArt);
         const tblElem = wrapPageInTbl(divArt);
+        console.log("wrap ok", tblElem)
         if (stripFontFamilies) {
+          console.log("stripping fonts...")
           removeFontFamily(tblElem)
         }
       }
