@@ -9,6 +9,7 @@ import * as docx from "docx-preview";
 import {
   allTablesFullWidth,
   applyNonDefaultStylesToInline,
+  removeFontFamily,
   replaceTemplateCodes2,
   wrapPageInTbl,
 } from "./utils";
@@ -24,6 +25,7 @@ const DocxToHtmlUsingPreview = () => {
   const [fullWidthTables, setFullWidthTables] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [signatureChoice, setSignatureChoice] = useState("0");
+  const [stripFontFamilies, setStripFontFamilies] = useState(true);
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (
     event
@@ -90,7 +92,10 @@ const DocxToHtmlUsingPreview = () => {
           allTablesFullWidth(divArt);
         }
         applyNonDefaultStylesToInline(divArt);
-        wrapPageInTbl(divArt);
+        const tblElem = wrapPageInTbl(divArt);
+        if (stripFontFamilies) {
+          removeFontFamily(tblElem)
+        }
       }
       console.log(
         "HTML content available for export:",
@@ -208,6 +213,13 @@ const DocxToHtmlUsingPreview = () => {
               label="Endre tabeller til full bredde"
               initialChecked={fullWidthTables}
               onChange={setFullWidthTables}
+            />
+            </div>
+            <div className="mb-2">
+            <Checkbox
+              label="Fjern skrifttype (familie)"
+              initialChecked={stripFontFamilies}
+              onChange={setStripFontFamilies}
             />
             </div>
             <div className="mb-2">

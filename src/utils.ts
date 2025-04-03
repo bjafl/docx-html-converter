@@ -207,7 +207,7 @@ export function allTablesFullWidth(rootElement: HTMLElement) {
   tables.forEach((table) => {
     if (table.className.includes("A4-wrapper")) return;
     //const parentWidth = table.parentElement?.clientWidth;
-    table.style.width = "160mm" //Math.min(parentWidth || 0, wrapperWidth) + "px";
+    table.style.width = "100%"; //"160mm" //Math.min(parentWidth || 0, wrapperWidth) + "px";
     /*const existingWidth = /width:[^;](;|$)/.exec(table.style.cssText);
     if (existingWidth) {
       table.style.cssText = table.style.cssText.replace(
@@ -235,4 +235,32 @@ export function wrapPageInTbl(rootElement: HTMLElement) {
   });
   rootElement.innerHTML = "";
   rootElement.appendChild(tbl);
+  return tbl;
+}
+
+export function removeFontFamily(rootElement: HTMLElement, setInRoot = true) {
+  const fontFamilyCount: Record<string, number> = {}
+  const removeFontsChildren = (firstChild: HTMLElement) => {
+    const children = rootElement.children
+    if (Array.isArray(children)) {
+      Array.from(children).forEach((child) => {
+        if (child instanceof HTMLElement) removeFontsChildren(child)
+      })
+    }
+    const fFamily = firstChild.style.fontFamily;
+    fFamily.split(',').forEach((fam) => {
+      fam = fam.replace('"', '').trim();
+      fontFamilyCount[fam] = (fontFamilyCount[fam] || 1) + 1;
+    })
+    firstChild.style.fontFamily = ""
+  }
+
+  if (setInRoot) {
+    const [newFam] = Object.entries(fontFamilyCount).reduce((last, cur) => {
+      return last[1] >= cur[1] ? last : cur;
+    }, ["",0])
+    if (newFam) {
+      rootElement.style.fontFamily = newFam;
+    }
+  }
 }
