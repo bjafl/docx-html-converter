@@ -175,8 +175,7 @@ export function applyNonDefaultStylesToInline(
 
       // Skip excluded or always-skip properties
       if (excludeProps.includes(propertyName)) continue;
-      if (alwaysSkip.some((prefix) => propertyName.includes(prefix)))
-        continue;
+      if (alwaysSkip.some((prefix) => propertyName.includes(prefix))) continue;
 
       const computedValue = computedStyle.getPropertyValue(propertyName);
       const defaultValue = defaultStyles[propertyName];
@@ -238,51 +237,64 @@ export function wrapPageInTbl(rootElement: HTMLElement) {
 }
 
 export function removeFontFamily(rootElement: HTMLElement, setInRoot = true) {
-  const fontFamilyCount: Record<string, number> = {}
-  
+  const fontFamilyCount: Record<string, number> = {};
+
   const removeFontsChildren = (firstChild: HTMLElement) => {
     firstChild.childNodes.forEach((child) => {
-        if (child instanceof HTMLElement) removeFontsChildren(child)
-      });
-    
+      if (child instanceof HTMLElement) removeFontsChildren(child);
+    });
 
     const fFamily = firstChild.style.fontFamily;
-    fFamily.split(',').forEach((fam) => {
-      fam = fam.replace(/(^['" ]+)|(['" ]+$)/g, '').trim();
+    fFamily.split(",").forEach((fam) => {
+      fam = fam.replace(/(^['" ]+)|(['" ]+$)/g, "").trim();
       fontFamilyCount[fam] = (fontFamilyCount[fam] || 1) + 1;
-    })
-    firstChild.style.fontFamily = ""
-  }
+    });
+    firstChild.style.fontFamily = "";
+  };
 
   removeFontsChildren(rootElement);
 
   if (setInRoot) {
-    console.log("font counts", fontFamilyCount)
-    const [newFam] = Object.entries(fontFamilyCount).reduce((last, cur) => {
-      return last[1] >= cur[1] ? last : cur;
-    }, ["",0])
+    console.log("font counts", fontFamilyCount);
+    const [newFam] = Object.entries(fontFamilyCount).reduce(
+      (last, cur) => {
+        return last[1] >= cur[1] ? last : cur;
+      },
+      ["", 0]
+    );
     if (newFam) {
       rootElement.style.fontFamily = newFam;
-    }CSSStyleRule
+    }
   }
 }
 
-export function applyStyleheetsInline(doc: Document, excludeProps: string[] = []) {
+export function applyStyleheetsInline(
+  doc: Document,
+  excludeProps: string[] = []
+) {
   Array.from(doc.styleSheets).forEach((styleSheet) => {
     try {
       const rules = styleSheet.cssRules || [];
       Array.from(rules).forEach((rule) => {
         if (rule.constructor.name === "CSSStyleRule") {
           const styleRule = rule as CSSStyleRule;
-          const style = Object.entries(styleRule.style).reduce((acc, [prop, value]) => {
-            if (!value || excludeProps.includes(prop)) return acc;
-            acc[prop] = value;
-            return acc;
-          }, {} as Record<string, string>);
+          const styleProps = Array.from(styleRule.style);
+
+          const style = styleProps
+            .filter((propName) => !excludeProps.includes(propName))
+            .map((propName) => ({
+              [propName]: styleRule.style.getPropertyValue(propName),
+            }))
+            .reduce(
+              (acc, cur) => ({ ...acc, ...cur }),
+              {} as Record<string, string>
+            );
           const elements = doc.querySelectorAll(styleRule.selectorText);
           elements.forEach((element) => {
-            if (!(element instanceof HTMLElement)) return;
-            applyStylesInlineToElement(element, style);            
+            if (element.nodeType === Node.ELEMENT_NODE) {
+              const elementTyped = element as HTMLElement;
+              applyStylesInlineToElement(elementTyped, style);
+            }
           });
         }
       });
@@ -291,12 +303,16 @@ export function applyStyleheetsInline(doc: Document, excludeProps: string[] = []
     }
   });
 }
-export function applyStylesInline(element: HTMLElement, styles: Record<string, Record<string, string>>) {
+export function applyStylesInline(
+  element: HTMLElement,
+  styles: Record<string, Record<string, string>>
+) {
   Object.entries(styles).forEach(([selector, style]) => {
     const elements = element.querySelectorAll(selector);
     elements.forEach((el) => {
-      if (!(el instanceof HTMLElement)) return;
-      applyStylesInlineToElement(el, style, false);
+      if (el.nodeType === Node.ELEMENT_NODE) {
+        applyStylesInlineToElement(el as HTMLElement, style, false);
+      }
     });
   });
 }
@@ -324,5 +340,14 @@ export function applyStylesInlineToElement(
       if (excludeExising && element.style.getPropertyValue(prop)) return;
       element.style.setProperty(prop, value);
     }
+  });
+}
+
+export function stripClassNames(element: HTMLElement) {
+  if (element.attributes.getNamedItem("class")) {
+    element.attributes.removeNamedItem("class");
+  }
+  Array.from(element.childNodes).forEach((child) => {
+    if (child instanceof HTMLElement) stripClassNames(child);
   });
 }
