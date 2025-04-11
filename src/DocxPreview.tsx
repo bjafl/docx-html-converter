@@ -12,6 +12,7 @@ import {
   applyStylesInline,
   removeFontFamily,
   replaceTemplateCodes2,
+  stripClassNames,
   wrapPageInTbl,
 } from "./utils";
 import { flettekoder, signatureFields } from "./constants";
@@ -35,6 +36,7 @@ const DocxToHtmlUsingPreview = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [signatureChoice, setSignatureChoice] = useState("0");
   const [stripFontFamilies, setStripFontFamilies] = useState(true);
+  const [removeOldSignature, setRemoveOldSignature] = useState(false);
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (
     event
@@ -71,6 +73,7 @@ const DocxToHtmlUsingPreview = () => {
       containerRef.innerHTML = "";
 
       console.log("rendering document...");
+      
       // Render the docx in the container with style preservation
       await docx.renderAsync(arrayBuffer, containerRef, undefined, {
         className: "docx-viewer",
@@ -89,6 +92,7 @@ const DocxToHtmlUsingPreview = () => {
 
       // Get the HTML content for export if needed
       const htmlContent = containerRef.innerHTML;
+      console.log("HTML content:", htmlContent);
       const divArt = containerRef.querySelector("article");
       if (divArt) {
         //divArt.innerHTML = replaceTemplateCodes(divArt?.innerHTML, flettekoder);
@@ -98,13 +102,19 @@ const DocxToHtmlUsingPreview = () => {
           const divSig = document.createElement("div");
           divSig.innerHTML = signatureHtml;
           divArt.appendChild(divSig);
+          if (removeOldSignature) {
+            const oldSig = divArt.querySelector('table:last-of-type');
+            if (oldSig) {
+              oldSig.remove();
+            }
+          }
         }
         console.log("divArt:", divArt);
         if (fullWidthTables) {
           allTablesFullWidth(divArt);
         }
         const doc = iframeRef.current?.contentDocument;
-        if (doc !== null && doc !== undefined) applyStyleheetsInline(doc);
+        if (doc !== null && doc !== undefined) applyStyleheetsInline(doc, ["counterReset"]);
         //applyNonDefaultStylesToInline(divArt);
         const tblElem = wrapPageInTbl(divArt);
         if (stripFontFamilies) {
@@ -114,6 +124,9 @@ const DocxToHtmlUsingPreview = () => {
 
         console.log("Applying override styles...");
         applyStylesInline(divArt, overrideStyles);
+
+        console.log("stripping class names...");
+        stripClassNames(tblElem);
       }
       console.log(
         "HTML content available for export:",
@@ -127,7 +140,7 @@ const DocxToHtmlUsingPreview = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [containerRef, file, fullWidthTables, signatureChoice]);
+  }, [containerRef, file, fullWidthTables, removeOldSignature, signatureChoice, stripFontFamilies]);
 
   useEffect(() => {
     if (file) {
@@ -240,13 +253,21 @@ const DocxToHtmlUsingPreview = () => {
                 onChange={setStripFontFamilies}
               />
             </div>
-            <div className="mb-2">
+            <div className="mb-2 border-t">
               <RadioGroup
                 name="signature-options"
                 label="Legg til signaturfelt"
                 options={signatureOptions}
                 value={signatureChoice}
                 onChange={setSignatureChoice}
+              />
+            </div>
+            <div className="mb-2">
+              <Checkbox
+                label="Prøv å fjerne gammelt signaturfelt"
+                initialChecked={removeOldSignature}
+                onChange={setRemoveOldSignature}
+                disabled={signatureChoice === "0"}
               />
             </div>
           </div>
