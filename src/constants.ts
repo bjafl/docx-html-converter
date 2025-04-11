@@ -68,33 +68,39 @@ export const flettekoder = {
 
 export const signatureFields: Record<string,string> = {
     '2': `
-<table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
+
+<table style="width: 100%; border:0px solid #000000 !important;margin-top:10mm;border-spacing:24pt;">
   <tr>
-  <td style="border-width:0px !important; width:4%"></td>
-  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px; width: 47%;">
-    <span>Signatur1</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
-  </td>
-  <td style="border-width:0px !important; width:4%"></td>
-  <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px; width: 47%;">
-    <span>Signatur2</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
-  </td>
-  <td style="border-width:0px !important; width:4%"></td>
+    <tr>
+      <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;;width: 44%;">
+        <p style="margin:0">Signatur1</p>
+        <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
+      </td>
+    <td style="border-width:0px !important; width:6%"></td>
+      <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;width: 44%;">
+        <p style="margin:0">Signatur2</p>
+        <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
+      </td>
+    <td style="border-width:0px !important; width:6%"></td>
   </tr>
-</table>
+  </table>
 `,
     '3': `
   <table style="width: 160mm; border-width:0px !important;margin-top:10mm;">
     <tr>
     <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;;width: 28%;">
-      <span>Signatur1</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
+      <p style="margin:0">Signatur1</p>
+      <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
     </td>
   <td style="border-width:0px !important; width:3%"></td>
     <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;width: 28%;">
-      <span>Signatur2</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
+      <p style="margin:0">Signatur2</p>
+      <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
     </td>
   <td style="border-width:0px !important; width:3%"></td>
     <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;margin:0px 12pt;width: 28%;">
-      <span>Signatur3</span><br/><span style="font-size: 0.9em;"><em>Tittel</em></span>
+      <p style="margin:0">Signatur3</p>
+      <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
     </td>
     </tr>
 </table>
