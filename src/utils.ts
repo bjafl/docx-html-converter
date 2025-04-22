@@ -292,8 +292,7 @@ export function applyStyleheetsInline(
           const elements = doc.querySelectorAll(styleRule.selectorText);
           elements.forEach((element) => {
             if (element.nodeType === Node.ELEMENT_NODE) {
-              const elementTyped = element as HTMLElement;
-              applyStylesInlineToElement(elementTyped, style);
+              applyStylesInlineToElement(element as HTMLElement, style, false, true, doc);
             }
           });
         }
@@ -305,13 +304,14 @@ export function applyStyleheetsInline(
 }
 export function applyStylesInline(
   element: HTMLElement,
-  styles: Record<string, Record<string, string>>
+  styles: Record<string, Record<string, string>>,
+  contextDoc: Document = document
 ) {
   Object.entries(styles).forEach(([selector, style]) => {
     const elements = element.querySelectorAll(selector);
     elements.forEach((el) => {
       if (el.nodeType === Node.ELEMENT_NODE) {
-        applyStylesInlineToElement(el as HTMLElement, style, false);
+        applyStylesInlineToElement(el as HTMLElement, style, false, true, contextDoc);
       }
     });
   });
@@ -333,14 +333,50 @@ export function combineStyles(styles: CSSStyleDeclaration[]) {
 export function applyStylesInlineToElement(
   element: HTMLElement,
   styles: Record<string, string> | CSSStyleDeclaration,
-  excludeExising = true
+  excludeExising = true,
+  computeSpecialValues = true,
+  computeContextDoc: Document = document
 ) {
   Object.entries(styles).forEach(([prop, value]) => {
     if (value) {
       if (excludeExising && element.style.getPropertyValue(prop)) return;
-      element.style.setProperty(prop, value);
+      if (computeSpecialValues && /var|calc\(.+\)/i.test(value)) {
+        const computedValue = computeStyleValue(prop, value, computeContextDoc);
+        if (computedValue) {
+          element.style.setProperty(prop, computedValue);
+        } else {
+          console.warn("Could not compute value for:", prop, value);
+        }
+      } else {
+        element.style.setProperty(prop, value);
+      }
     }
   });
+}
+
+/*function computeStyle(styles: Record<string, string> | CSSStyleDeclaration, contextDoc: Document = document) {
+  const tempElement = contextDoc.createElement("div");
+  contextDoc.body.appendChild(tempElement);
+  applyStylesInlineToElement(tempElement, styles);
+  const computedStyle = window.getComputedStyle(tempElement);
+  const resolvedStyle: Record<string, string> = {};
+  Object.keys(styles).forEach((prop) => {
+    const value = computedStyle.getPropertyValue(prop);
+    if (value) {
+      resolvedStyle[prop] = value;
+    }
+  });
+  contextDoc.body.removeChild(tempElement);
+  return resolvedStyle;
+}*/
+
+function computeStyleValue(prop: string, value: string, contextDoc: Document = document) {
+  const tempElement = contextDoc.createElement("div");
+  document.body.appendChild(tempElement);
+  tempElement.style.setProperty(prop, value);
+  const computedValue = window.getComputedStyle(tempElement).getPropertyValue(prop);
+  document.body.removeChild(tempElement);
+  return computedValue;
 }
 
 export function stripClassNames(element: HTMLElement) {

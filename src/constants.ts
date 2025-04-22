@@ -41,7 +41,7 @@ export const flettekoder = {
     "T-Søkerdato": "#REGISTRERTDATO#",
     "T-Tiltaksansvarlig-Etternavn": "#VEILEDER#",
     "T-Tiltaksansvarlig-Fornavn": "",
-    "T-Tiltaksansvarlig-Fornavnetternavn": "#LEDER#",
+    "T-Tiltaksansvarlig-Fornavnetternavn": "#VEILEDER#",
     "T-Tiltaksansvarlig-Mobiltelefon": "#VEILEDERTLF-TILTAK#",
     "T-Tiltaksansvarlig-Tittel": "??ANSVARLIG-TITTEL??",
     "T-Tiltakstype-Fagansvarlig-Fornavnetternavn": "??FAGANSVARLIG??",
