@@ -1,3 +1,5 @@
+import { addImportantToStylesMatching } from "./constants";
+
 export function replaceTemplateCodes(
   html: string,
   templateCodes: Record<string, string>
@@ -302,6 +304,7 @@ export function applyStyleheetsInline(
     }
   });
 }
+
 export function applyStylesInline(
   element: HTMLElement,
   styles: Record<string, Record<string, string>>,
@@ -340,15 +343,18 @@ export function applyStylesInlineToElement(
   Object.entries(styles).forEach(([prop, value]) => {
     if (value) {
       if (excludeExising && element.style.getPropertyValue(prop)) return;
+      const addImportant = value.includes("!important") || addImportantToStylesMatching.some((match) =>
+        match.test(prop)
+      );
       if (computeSpecialValues && /var|calc\(.+\)/i.test(value)) {
         const computedValue = computeStyleValue(prop, value, computeContextDoc);
         if (computedValue) {
-          element.style.setProperty(prop, computedValue);
+          element.style.setProperty(prop, computedValue, addImportant ? "important" : "");
         } else {
           console.warn("Could not compute value for:", prop, value);
         }
       } else {
-        element.style.setProperty(prop, value);
+        element.style.setProperty(prop, value, addImportant ? "important" : "");
       }
     }
   });
@@ -385,5 +391,33 @@ export function stripClassNames(element: HTMLElement) {
   }
   Array.from(element.childNodes).forEach((child) => {
     if (child instanceof HTMLElement) stripClassNames(child);
+  });
+}
+export function addImportantToInlineStyles(
+  rootElement: HTMLElement
+) {
+  // Process this element's styles
+  Array.from(rootElement.style).forEach((prop) => {
+    if (addImportantToStylesMatching.some((match) => match.test(prop))) {
+      const value = rootElement.style.getPropertyValue(prop);
+      if (value) {
+        rootElement.style.setProperty(prop, value, "important");
+      }
+    }
+  });
+  
+  // Process ALL descendant elements
+  const allDescendants = rootElement.querySelectorAll('*');
+  allDescendants.forEach((descendant) => {
+    if (descendant instanceof HTMLElement) {
+      Array.from(descendant.style).forEach((prop) => {
+        if (addImportantToStylesMatching.some((match) => match.test(prop))) {
+          const value = descendant.style.getPropertyValue(prop);
+          if (value) {
+            descendant.style.setProperty(prop, value, "important");
+          }
+        }
+      });
+    }
   });
 }

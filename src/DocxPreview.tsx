@@ -7,6 +7,7 @@ import {
 } from "react";
 import * as docx from "docx-preview";
 import {
+  addImportantToInlineStyles,
   allTablesFullWidth,
   applyStyleheetsInline,
   applyStylesInline,
@@ -127,6 +128,9 @@ const DocxToHtmlUsingPreview = () => {
 
         console.log("stripping class names...");
         stripClassNames(tblElem);
+
+        console.log("Applying important to styles...");
+        addImportantToInlineStyles(tblElem);
       }
       console.log(
         "HTML content available for export:",
@@ -208,6 +212,7 @@ const DocxToHtmlUsingPreview = () => {
 
   const signatureOptions = [
     { label: "Ingen", value: "0" },
+    { label: "1 signatur", value: "1" },
     { label: "2 signaturer", value: "2" },
     { label: "3 signaturer", value: "3" },
   ];
