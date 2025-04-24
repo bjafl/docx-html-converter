@@ -22,7 +22,7 @@ export const flettekoder = {
     "A-Sistetiltak-Tiltakstype-Avdeling-Avdelingsleder-Fornavnetternavn": "??",
     "K-Poststed": "#FIRMAPOSTSTED#",
     "PA-Fornavnetternavn": "#VEILEDER#",
-    "PA-Mobiltelefon": "#VEILEDERTLF-TILTA#",
+    "PA-Mobiltelefon": "#VEILEDERTLF-TILTAK#",
     "PA-Tittel": "??TITTEL??",
     "S-Datonå": "#DATO#",
     "T-Avdelingnå": "#AVDELING#",
@@ -67,7 +67,23 @@ export const flettekoder = {
 }
 
 export const signatureFields: Record<string,string> = {
-    '2': `
+  '1': `
+
+  <table style="width: 100%; border:0px solid #000000 !important;margin-top:10mm;border-spacing:24pt;">
+    <tr>
+      <tr>
+        <td style="border-top:1px solid rgb(128, 128, 128) !important; border-left-width:0px !important; border-right-width:0px !important; border-bottom-width:0px !important; padding: 6px;;width: 44%;">
+          <p style="margin:0">Navn</p>
+          <p style="margin:0;font-size: 0.9em;"><em>Tittel</em></p>
+        </td>
+      <td style="border-width:0px !important; width:6%"></td>
+        <td style="border-width:0px !important; padding: 6px;width: 44%;">
+        </td>
+      <td style="border-width:0px !important; width:6%"></td>
+    </tr>
+    </table>
+  `, 
+  '2': `
 
 <table style="width: 100%; border:0px solid #000000 !important;margin-top:10mm;border-spacing:24pt;">
   <tr>
@@ -106,3 +122,7 @@ export const signatureFields: Record<string,string> = {
 </table>
     `
 }
+
+export const addImportantToStylesMatching = [
+  /border.*/i
+]
